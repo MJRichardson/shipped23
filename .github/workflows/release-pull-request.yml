@@ -60,4 +60,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Login to Octopus
+        uses: OctopusDeploy/login@v1
+        with:
+          server: https://michrich.octopus.app
+          service_account_id: 1269d528-af54-4ab9-8a4b-902ac894a865
+
      
