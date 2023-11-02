@@ -62,7 +62,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: echo tag
-        run: echo '$IMAGE_TAG'
+        run: echo "$IMAGE_TAG"
         env:
           IMAGE_TAG: ${{ steps.meta.outputs.tags }}
 
