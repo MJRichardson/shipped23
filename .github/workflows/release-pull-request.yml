@@ -9,6 +9,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  OCTOPUS_SPACE: 'SHIPPED23'
 
 jobs:
   build:
