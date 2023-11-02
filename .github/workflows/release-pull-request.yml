@@ -61,6 +61,11 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: echo tag
+        run: echo '$IMAGE_TAG'
+        env:
+          IMAGE_TAG: ${{ steps.meta.outputs.tags }}
+
       - name: Login to Octopus
         uses: OctopusDeploy/login@v1
         with:
