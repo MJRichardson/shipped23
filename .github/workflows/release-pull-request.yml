@@ -55,7 +55,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}.${{GITHUB_RUN_NUMBER}}
+          tags: ${{ steps.meta.outputs.tags }}.${{vars.GITHUB_RUN_NUMBER}}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -73,4 +73,4 @@ jobs:
           git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
           git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
           release_number: ${{ steps.meta.outputs.tags }}
-          package_version: ${{ steps.meta.outputs.tags }}.${{GITHUB_RUN_NUMBER}}
+          package_version: ${{ steps.meta.outputs.tags }}.${{vars.GITHUB_RUN_NUMBER}}
