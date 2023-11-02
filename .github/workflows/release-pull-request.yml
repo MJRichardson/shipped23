@@ -55,7 +55,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}.${{GITHUB_RUN_NUMBER}}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -66,4 +66,11 @@ jobs:
           server: https://michrich.octopus.app
           service_account_id: 1269d528-af54-4ab9-8a4b-902ac894a865
 
-     
+      - name: Create a release in Octopus Deploy 🐙
+        uses: OctopusDeploy/create-release-action@v3
+        with:
+          project: 'SHIPPED23'
+          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
+          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
+          release_number: ${{ steps.meta.outputs.tags }}
+          package_version: ${{ steps.meta.outputs.tags }}.${{GITHUB_RUN_NUMBER}}
