@@ -26,6 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v7
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
@@ -56,15 +59,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}.${{ github.run_id }}
+          tags: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: echo tag
-        run: echo "$IMAGE_TAG"
-        env:
-          IMAGE_TAG: ${{ steps.meta.outputs.tags }}
 
       - name: Login to Octopus
         uses: OctopusDeploy/login@v1
@@ -77,4 +75,4 @@ jobs:
         with:
           project: 'SHIPPED23'
           release_number: ${{ steps.meta.outputs.tags }}
-          package_version: ${{ steps.meta.outputs.tags }}.${{ github.run_id }}
+          package_version: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
