@@ -76,5 +76,6 @@ jobs:
         uses: OctopusDeploy/create-release-action@v3
         with:
           project: 'SHIPPED23'
+          channel: 'Branches'
           release_number: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
           package_version: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
