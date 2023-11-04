@@ -1,0 +1,29 @@
+step "hello-world" {
+    name = "hello world"
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                image=$(get_octopusvariable "Octopus.Action.Package[shipped23].Image")
+                
+                echo "deploying image: $image"
+                EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+        }
+        worker_pool = "hosted-ubuntu"
+
+        packages "shipped23" {
+            acquisition_location = "NotAcquired"
+            feed = "github-container-registry"
+            package_id = "mjrichardson/shipped23"
+            properties = {
+                Extract = "False"
+                Purpose = ""
+                SelectionMode = "immediate"
+            }
+        }
+    }
+}
