@@ -28,6 +28,30 @@ step "hello-world" {
     }
 }
 
+step "kubectl-hello-world" {
+    name = "kubectl hello world"
+    properties = {
+        Octopus.Action.TargetRoles = "shipped23-k8s"
+    }
+
+    action {
+        action_type = "Octopus.KubernetesRunScript"
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Script.ScriptBody = "kubectl version"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "Bash"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool = "hosted-ubuntu"
+
+        container {
+            feed = "dockerhub"
+            image = "octopuslabs/k8s-workertools:1.28.2-ubuntu.2204"
+        }
+    }
+}
+
 step "kustomize" {
     name = "Kustomize"
     package_requirement = "AfterPackageAcquisition"
