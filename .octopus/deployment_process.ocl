@@ -27,3 +27,71 @@ step "hello-world" {
         }
     }
 }
+
+step "kustomize" {
+    name = "Kustomize"
+    package_requirement = "AfterPackageAcquisition"
+    properties = {
+        Octopus.Action.TargetRoles = "shipped23-k8s"
+    }
+
+    action {
+        action_type = "kustomize"
+        properties = {
+            Octopus.Action.RunOnServer = "true"
+            OctopusUseBundledTooling = "False"
+        }
+        step_package_version = "2.0.2"
+        worker_pool = "hosted-ubuntu"
+
+        container {
+            feed = "dockerhub"
+            image = "octopuslabs/k8s-workertools:1.28.2-ubuntu.2204"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-1"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/MJRichardson/shipped23.git"
+            step_package_inputs_reference_id = "a135779e-9293-4bde-a625-640586cf16f6"
+        }
+
+        packages "shipped23" {
+            acquisition_location = "NotAcquired"
+            feed = "github-container-registry"
+            package_id = "mjrichardson/shipped23"
+            step_package_inputs_reference_id = "fd9cee07-c687-41f7-9454-73822da130d7"
+        }
+
+        inputs {
+            overlayPath = "deploy/kustomize/octopus"
+
+            containerImageReferences {
+                containerImageReference {
+                    feedId = "Feeds-1467"
+                    imageName = "mjrichardson/shipped23"
+                    referenceId = "fd9cee07-c687-41f7-9454-73822da130d7"
+                }
+            }
+
+            gitSource {
+                defaultBranch = "main"
+                gitCredential = "GitCredentials-1"
+                isAnonymous = false
+                referenceId = "a135779e-9293-4bde-a625-640586cf16f6"
+                url = "https://github.com/MJRichardson/shipped23.git"
+            }
+
+            kubernetesObjectStatus {
+                enabled = true
+                timeout = 180
+                waitForJobs = false
+            }
+
+            substituteFiles {
+                filesToTarget = ""
+            }
+        }
+    }
+}
