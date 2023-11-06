@@ -38,7 +38,11 @@ step "kubectl-hello-world" {
         action_type = "Octopus.KubernetesRunScript"
         properties = {
             Octopus.Action.RunOnServer = "true"
-            Octopus.Action.Script.ScriptBody = "kubectl version"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                kubectl version
+                
+                kubectl auth can-i create namespace
+                EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "Bash"
             OctopusUseBundledTooling = "False"
