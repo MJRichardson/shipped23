@@ -1,0 +1,11 @@
+name: Release - Main
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-release:
+    uses: MJRichardson/shipped23/.workflows/build-and-release.yaml@main
+    with:
+      octopus-channel: "Release"
