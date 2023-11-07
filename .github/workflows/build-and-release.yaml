@@ -80,7 +80,7 @@ jobs:
         uses: OctopusDeploy/create-release-action@v3
         with:
           project: 'SHIPPED23'
-          channel: $inputs.octopus-channel
+          channel: ${{inputs.octopus-channel}}
           release_number: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
           package_version: ${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}
           git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
