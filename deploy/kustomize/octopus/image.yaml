@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipped23
+spec:
+  template:
+    spec:
+      containers:
+        - name: shipped23
+          image: "#{Octopus.Action.Package[shipped23].Image}"

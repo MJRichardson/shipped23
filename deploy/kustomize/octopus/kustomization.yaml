@@ -1,6 +1,7 @@
 namespace: "#{Kubernetes.Namespace}"
 resources:
   - ../base
-images:
-  - name: shipped23
-    newName: #{Octopus.Action.Package[shipped23].Image}
+patches:
+  - path: image.yaml
+    target:
+      kind: Deployment
