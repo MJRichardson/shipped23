@@ -20,7 +20,7 @@ step "kustomize" {
         }
 
         git_dependencies {
-            default_branch = "k8s"
+            default_branch = "main"
             git_credential_id = "GitCredentials-1"
             git_credential_type = "Library"
             repository_uri = "https://github.com/MJRichardson/shipped23.git"
@@ -46,7 +46,7 @@ step "kustomize" {
             }
 
             gitSource {
-                defaultBranch = "k8s"
+                defaultBranch = "main"
                 gitCredential = "GitCredentials-1"
                 isAnonymous = false
                 referenceId = "a135779e-9293-4bde-a625-640586cf16f6"
