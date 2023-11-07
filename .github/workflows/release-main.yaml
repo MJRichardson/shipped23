@@ -6,6 +6,6 @@ on:
 
 jobs:
   build-and-release:
-    uses: MJRichardson/shipped23/.workflows/build-and-release.yaml@main
+    uses: MJRichardson/shipped23/.github/workflows/build-and-release.yaml@release-main
     with:
       octopus-channel: "Release"
