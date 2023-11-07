@@ -1,0 +1,7 @@
+namespace: "#{Kubernetes.Namespace}"
+resources:
+  - ../base
+patches:
+  - path: image.yaml
+    target:
+      kind: Deployment
