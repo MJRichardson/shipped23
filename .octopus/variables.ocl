@@ -1,0 +1,3 @@
+variable "Kubernetes.Namespace" {
+    value "shipped-#{Octopus.Release.Git.BranchName}" {}
+}
