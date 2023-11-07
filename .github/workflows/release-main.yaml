@@ -1,11 +1,11 @@
-name: Release - Pull Request
+name: Release - Main
 
 on:
-  pull_request:
+  push:
     branches: [ "main" ]
 
 jobs:
   build-and-release:
     uses: MJRichardson/shipped23/.github/workflows/build-and-release.yaml@release-main
     with:
-      octopus-channel: "Branches"
+      octopus-channel: "Release"
