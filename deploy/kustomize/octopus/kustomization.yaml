@@ -1,7 +1,19 @@
 namespace: "#{Kubernetes.Namespace}"
 resources:
   - ../base
+secretGenerator:
+  - name: ghcrcreds
+    literals:
+      - "#{GitHub.Username}=#{GitHub.PAT}"
 images:
   - name: shipped23
     newName: #{Octopus.Action.Package[shipped23].PackageId}
     newTag: #{Octopus.Action.Package[shipped23].PackageVersion}
+patches:
+  - target:
+      kind: Deployment
+    patch: |-
+      - op: add
+        path: /spec/template/spec/imagePullSecrets/-
+        value:
+          name: ghcrcreds
