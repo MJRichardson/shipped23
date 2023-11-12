@@ -13,3 +13,7 @@ variable "Branch" {
         }
     }
 }
+
+variable "OctopusServerURL" {
+    value "https://michrich.octopus.app" {}
+}
