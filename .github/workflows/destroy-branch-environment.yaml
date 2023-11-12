@@ -5,6 +5,9 @@ on:
   pull_request:
     types: [ closed ]
 
+env:
+  OCTOPUS_SPACE: 'SHIPPED23'
+
 jobs:
   destroy-branch-environment:
     runs-on: ubuntu-latest
