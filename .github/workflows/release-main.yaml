@@ -3,9 +3,32 @@ name: Release - Main
 on:
   push:
     branches: [ "main" ]
+env:
+  OCTOPUS_SPACE: 'SHIPPED23'
 
 jobs:
-  build-and-release:
-    uses: MJRichardson/shipped23/.github/workflows/build-and-release.yaml@main
-    with:
-      octopus-channel: "Release"
+  build-and-push-image:
+    uses: MJRichardson/shipped23/.github/workflows/build-and-push-image.yaml@provision-env
+
+  provision-environment-and-deploy:
+    permissions:
+      id-token: write # This is required for requesting the JWT
+    runs-on: ubuntu-latest
+    needs: build-and-push-image
+
+    steps:
+      - name: Login to Octopus 🐙
+        uses: OctopusDeploy/login@v1
+        with:
+          server: https://michrich.octopus.app
+          service_account_id: 1269d528-af54-4ab9-8a4b-902ac894a865
+
+      - name: Create a release in Octopus Deploy 🐙
+        uses: OctopusDeploy/create-release-action@v3
+        with:
+          project: 'SHIPPED23'
+          channel: 'Release'
+          release_number: ${{ needs.build-and-push-image.outputs.branch }}.${{ github.run_id }}
+          package_version: ${{ needs.build-and-push-image.outputs.branch }}.${{ github.run_id }}
+          git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
+          git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
