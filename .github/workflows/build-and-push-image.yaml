@@ -5,7 +5,7 @@ on:
     outputs:
       branch:
         description: "The name of the branch"
-        value: ${{ jobs.build-and-push.outputs.current_branch }}
+        value: ${{ jobs.build-and-push.outputs.branch }}
       image:
         description: "The fully qualified built image"
         value: ${{ jobs.build-and-push.outputs.image }}
