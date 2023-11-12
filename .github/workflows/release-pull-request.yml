@@ -18,7 +18,7 @@ jobs:
     needs: build-and-push-image
 
     steps:
-     - name: Login to Octopus
+     - name: Login to Octopus 🐙
        uses: OctopusDeploy/login@v1
        with:
          server: https://michrich.octopus.app
@@ -37,4 +37,5 @@ jobs:
 
      - name: Wait for environment to provision 🐙
        uses: OctopusDeploy/await-task-action@v3
-       server_task_id: ${{ steps.provision-branch-environment.outputs.server_tasks[0].serverTaskId }}
+       with:
+         server_task_id: ${{ steps.provision-branch-environment.outputs.server_tasks[0].serverTaskId }}

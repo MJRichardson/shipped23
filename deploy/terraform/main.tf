@@ -27,7 +27,7 @@ data "octopusdeploy_projects" "shipped_project" {
 }
 
 resource "octopusdeploy_environment" "branch_environment" {
-  name  = "${terraform.workspace}"
+  name  = " ${terraform.workspace}"
 }
 
 resource "octopusdeploy_lifecycle" "branch_lifecycle" {
