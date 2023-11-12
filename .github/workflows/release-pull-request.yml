@@ -39,3 +39,13 @@ jobs:
        uses: OctopusDeploy/await-task-action@v3
        with:
          server_task_id: ${{ fromJson(steps.provision-branch-environment.outputs.server_tasks)[0].serverTaskId }}
+
+     - name: Create a release in Octopus Deploy 🐙
+       uses: OctopusDeploy/create-release-action@v3
+       with:
+         project: 'SHIPPED23'
+         channel: ${{ needs.build-and-push-image.outputs.branch }}
+         release_number: ${{ needs.build-and-push-image.outputs.branch }}.${{ github.run_id }}
+         package_version: ${{ needs.build-and-push-image.outputs.branch }}.${{ github.run_id }}
+         git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
+         git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}
