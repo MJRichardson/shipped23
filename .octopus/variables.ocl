@@ -2,9 +2,13 @@ variable "Kubernetes.Namespace" {
     value "shipped-#{Octopus.Release.Git.BranchName}" {}
 }
 
+variable "OctopusServerURL" {
+    value "https://michrich.octopus.app" {}
+}
+
 variable "Branch" {
     value {
-        process = ["runbook/create-branch-environment"]
+        process = ["runbook/create-branch-environment", "runbook/destroy-branch-environment"]
 
         prompt {
             description = ""
@@ -12,8 +16,4 @@ variable "Branch" {
             required = true
         }
     }
-}
-
-variable "OctopusServerURL" {
-    value "https://michrich.octopus.app" {}
 }
