@@ -5,13 +5,13 @@ on:
     outputs:
       branch:
         description: "The name of the branch"
-        value: ${{ jobs.branch-name.outputs.current_branch }}
+        value: ${{ steps.branch-name.outputs.current_branch }}
       image:
         description: "The fully qualified built image"
-        value: ${{ jobs.image-tag.outputs.image }}
+        value: ${{ steps.image-tag.outputs.image }}
       image-tag:
         description: "The tag component of the image"
-        value: ${{ jobs.image-tag.outputs.tag }}
+        value: ${{ steps.image-tag.outputs.tag }}
 
 env:
   REGISTRY: ghcr.io
