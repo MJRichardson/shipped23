@@ -1,13 +1,13 @@
 name: Release - Pull Request
 
-permissions:
-  id-token: 'write'
-
 on:
   pull_request:
     branches: [ "main" ]
 
 jobs:
+  permissions:
+    id-token: write # This is required for requesting the JWT
+
   build-and-push-image:
     uses: MJRichardson/shipped23/.github/workflows/build-and-push-image.yaml@provision-env
 
