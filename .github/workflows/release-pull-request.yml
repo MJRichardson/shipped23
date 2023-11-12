@@ -24,7 +24,8 @@ jobs:
          server: https://michrich.octopus.app
          service_account_id: 1269d528-af54-4ab9-8a4b-902ac894a865
 
-     - name: Run a runbook in Octopus Deploy 🐙
+     - name: Provision branch environment 🐙
+       id: provision-branch-environment
        uses: OctopusDeploy/run-runbook-action@v3
        with:
          project: 'SHIPPED23'
@@ -33,3 +34,7 @@ jobs:
           Branch:${{needs.build-and-push-image.outputs.branch}}
          environments: |
            Branch Template
+
+     - name: Wait for environment to provision 🐙
+       uses: OctopusDeploy/await-task-action@v3
+       server_task_id: ${{ steps.provision-branch-environment.outputs.server_tasks[0].serverTaskId }}
