@@ -48,6 +48,6 @@ resource "octopusdeploy_lifecycle" "branch_lifecycle" {
 
 resource "octopusdeploy_channel" "branch_channel" {
   name                  = "${terraform.workspace}"
-  project_id            = "${data.octopusdeploy_projects.shipped_project.id}"
+  project_id            = "${data.octopusdeploy_projects.shipped_project.projects[0].id}"
   lifecycle_id          = "${octopusdeploy_lifecycle.branch_lifecycle.id}"
 }
