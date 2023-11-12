@@ -2,16 +2,16 @@ name: Build and Push Image
 
 on:
   workflow_call:
-  outputs:
-    branch:
-      description: "The name of the branch"
-      value: ${{ jobs.branch-name.outputs.current_branch }}
-    image:
-      description: "The fully qualified built image"
-      value: ${{ jobs.image-tag.outputs.image }}
-    image-tag:
-      description: "The tag component of the image"
-      value: ${{ jobs.image-tag.outputs.tag }}
+    outputs:
+      branch:
+        description: "The name of the branch"
+        value: ${{ jobs.branch-name.outputs.current_branch }}
+      image:
+        description: "The fully qualified built image"
+        value: ${{ jobs.image-tag.outputs.image }}
+      image-tag:
+        description: "The tag component of the image"
+        value: ${{ jobs.image-tag.outputs.tag }}
 
 env:
   # Use docker.io for Docker Hub if empty
