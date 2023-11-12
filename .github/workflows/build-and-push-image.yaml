@@ -59,8 +59,8 @@ jobs:
         id: image-tag
         run: |
           tag="${{ steps.branch-name.outputs.current_branch }}.${{ github.run_id }}"
-          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$tag" >> $GITHUB_ENV 
-          echo "tag=$tag" >> $GITHUB_ENV 
+          echo "image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$tag" >> ${GITHUB_ENV} 
+          echo "tag=$tag" >> ${GITHUB_ENV} 
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
