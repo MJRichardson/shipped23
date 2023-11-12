@@ -14,9 +14,7 @@ on:
         value: ${{ jobs.image-tag.outputs.tag }}
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  OCTOPUS_SPACE: 'SHIPPED23'
 
 jobs:
   build:
