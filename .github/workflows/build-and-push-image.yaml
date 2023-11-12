@@ -5,19 +5,19 @@ on:
     outputs:
       branch:
         description: "The name of the branch"
-        value: ${{ steps.branch-name.outputs.current_branch }}
+        value: ${{ jobs.build-and-push.outputs.current_branch }}
       image:
         description: "The fully qualified built image"
-        value: ${{ steps.image-tag.outputs.image }}
-      image-tag:
+        value: ${{ jobs.build-and-push.outputs.image }}
+      tag:
         description: "The tag component of the image"
-        value: ${{ steps.image-tag.outputs.tag }}
+        value: ${{ jobs.build-and-push.outputs.tag }}
 
 env:
   REGISTRY: ghcr.io
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -25,6 +25,10 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
+    outputs:
+      branch: ${{ steps.branch-name.outputs.current_branch }}
+      image: ${{ steps.image-tag.outputs.image }}
+      tag: ${{ steps.image-tag.outputs.tag }}
 
     steps:
       - name: Checkout
