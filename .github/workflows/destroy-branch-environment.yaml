@@ -19,9 +19,6 @@ jobs:
       id-token: write
 
     steps:
-     - name: Get branch name
-       id: branch-name
-       uses: tj-actions/branch-names@v7
 
      - name: Login to Octopus 🐙
        uses: OctopusDeploy/login@v1
@@ -36,7 +33,7 @@ jobs:
          project: 'SHIPPED23'
          runbook: 'Destroy branch environment'
          variables: |
-           Branch:${{ steps.branch-name.outputs.current_branch }}
+           Branch:${{ github.event.pull_request.head.ref }}
          environments: |
            Branch Template
 
