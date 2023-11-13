@@ -15,5 +15,5 @@ variable "Branch" {
 }
 
 variable "Kubernetes.Namespace" {
-    value "shipped#{Octopus.Release.Git.BranchName}" {}
+    value "shipped-#{Octopus.Release.Git.BranchName}" {}
 }
