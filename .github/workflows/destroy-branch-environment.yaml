@@ -38,7 +38,7 @@ jobs:
          variables: |
            Branch:${{needs.build-and-push-image.outputs.branch}}
          environments: |
-           ${{steps.branch-name.outputs.current_branch}} 
+           Branch Template
 
      - name: Wait for environment to deprovision 🐙
        uses: OctopusDeploy/await-task-action@v3
