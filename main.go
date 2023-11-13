@@ -11,5 +11,5 @@ func main() {
 }
 
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello world!!")
+	io.WriteString(w, "Hello World!!")
 }
