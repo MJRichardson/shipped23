@@ -36,7 +36,7 @@ jobs:
          project: 'SHIPPED23'
          runbook: 'Destroy branch environment'
          variables: |
-           Branch:${{steps.branch-name.outputs.current_branch}}
+           Branch:${{ steps.branch-name.outputs.current_branch }}
          environments: |
            Branch Template
 
