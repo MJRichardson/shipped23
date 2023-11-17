@@ -3,7 +3,7 @@ WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o /shipped23
+RUN CGO_ENABLED=0 GOOS=linux go build -buildvcs=false -o /shipped23
 
 FROM debian:bullseye-slim AS release
 WORKDIR /
